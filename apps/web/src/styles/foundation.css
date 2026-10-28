@@ -1,0 +1,250 @@
+/*
+ * Grafite design system: tokens, reset and typography.
+ * Layout is phone-first; desktop rules live under :root[data-mobile-ui="false"],
+ * the attribute published from the real viewport by lib/viewport.ts.
+ */
+:root {
+  --font: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  --bg: #f1f1ee;
+  --sf: #ffffff;
+  --sf2: #e8e8e4;
+  --sf3: #dededa;
+  --ink: #0f0f10;
+  --mu: #5c5c61;
+  --ln: #dadad5;
+  --ln2: #c4c4be;
+  --ac: #c6f24e;
+  --aci: #0f0f10;
+  --act: #3f6b00;
+  --pos: #2f7a12;
+  --poss: #e6f5d4;
+  --neg: #c2352b;
+  --negs: #fbe3e0;
+  --est: #8a5a00;
+  --ests: #fbefd5;
+  --hero: #0f0f10;
+  --hero-ink: #f4f4f2;
+  --hero-mu: #a3a3a8;
+  --hero-chip: rgba(127, 127, 127, 0.2);
+  --nav: #0f0f10;
+  --nav-ink: #a3a3a8;
+  --bar: #cfcfca;
+  --scr: rgba(10, 10, 10, 0.5);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.22);
+  --focus: rgba(63, 107, 0, 0.35);
+  --frame: #dededb;
+  --frame-ink: #3f3f44;
+
+  --visual-viewport-width: 100vw;
+  --visual-viewport-height: 100dvh;
+  --visual-viewport-top: 0px;
+  --visual-viewport-left: 0px;
+  --layout-viewport-height: 100dvh;
+
+  font-family: var(--font);
+  font-synthesis: none;
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+:root[data-theme="dark"] {
+  --bg: #09090a;
+  --sf: #151517;
+  --sf2: #1f1f22;
+  --sf3: #29292d;
+  --ink: #f4f4f2;
+  --mu: #9c9ca2;
+  --ln: #2a2a2e;
+  --ln2: #3a3a3f;
+  --act: #c6f24e;
+  --pos: #a7e34a;
+  --poss: #1f2a10;
+  --neg: #ff7a6e;
+  --negs: #3a1714;
+  --est: #ffc266;
+  --ests: #3a2a10;
+  --hero: #c6f24e;
+  --hero-ink: #0f0f10;
+  --hero-mu: #3d4a1a;
+  --hero-chip: rgba(15, 15, 16, 0.12);
+  --nav: #1f1f22;
+  --nav-ink: #8e8e94;
+  --bar: #38383d;
+  --scr: rgba(0, 0, 0, 0.66);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
+  --focus: rgba(198, 242, 78, 0.35);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+}
+/*
+ * iOS 26 blurs the top edge of an installed web app. WebKit skips that
+ * effect when a real, fixed, full-width and opaque element taller than
+ * 10px sits at the top, so this strip (index.html) covers the status bar
+ * area in the page colour. Only the installed app needs it.
+ */
+#top-edge {
+  display: none;
+}
+@media (display-mode: standalone) {
+  #top-edge {
+    position: fixed;
+    z-index: 35;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    height: max(12px, env(safe-area-inset-top));
+    background: var(--bg);
+    pointer-events: none;
+  }
+}
+body {
+  min-width: 320px;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#root {
+  min-height: 100%;
+}
+body.modal-open {
+  overflow: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+/* Links are styled as tiles, rows or buttons: no browser underline. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+svg {
+  flex: none;
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+::selection {
+  background: var(--ac);
+  color: var(--aci);
+}
+[hidden] {
+  display: none !important;
+}
+
+/* Typography helpers */
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+.cap {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mu);
+}
+.dec {
+  opacity: 0.55;
+}
+.mu {
+  color: var(--mu);
+}
+.positive,
+.pos {
+  color: var(--pos);
+}
+.negative,
+.neg {
+  color: var(--neg);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Reusable icon sizing: lucide icons default to 24px. */
+.i16 {
+  width: 16px;
+  height: 16px;
+}
+.i18 {
+  width: 18px;
+  height: 18px;
+}
+.i20 {
+  width: 20px;
+  height: 20px;
+}
+.i22 {
+  width: 22px;
+  height: 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

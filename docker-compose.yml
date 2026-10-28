@@ -1,0 +1,95 @@
+services:
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - worth_split_db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
+      APP_ORIGIN: ${APP_ORIGIN}
+      API_PORT: 3000
+      SESSION_DAYS: ${SESSION_DAYS:-30}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      TRUST_PROXY: ${TRUST_PROXY:-loopback,linklocal,uniquelocal}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_HOURLY_LIMIT: ${MAIL_HOURLY_LIMIT:-50}
+      MAIL_RECIPIENT_DAILY_LIMIT: ${MAIL_RECIPIENT_DAILY_LIMIT:-10}
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_INDEX_PREFIX: ${ELASTICSEARCH_INDEX_PREFIX:-worth-split-operation-logs}
+      OPERATION_LOG_ENABLED: ${OPERATION_LOG_ENABLED:-true}
+      OPERATION_LOG_RETENTION_DAYS: ${OPERATION_LOG_RETENTION_DAYS:-180}
+      OPERATION_LOG_OUTBOX_RETENTION_DAYS: ${OPERATION_LOG_OUTBOX_RETENTION_DAYS:-7}
+      OPERATION_LOG_FLUSH_INTERVAL_MS: ${OPERATION_LOG_FLUSH_INTERVAL_MS:-5000}
+      OPERATION_LOG_BATCH_SIZE: ${OPERATION_LOG_BATCH_SIZE:-100}
+      BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
+      BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+    depends_on:
+      db: { condition: service_healthy }
+      elasticsearch: { condition: service_started }
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks: [internal]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api: { condition: service_healthy }
+    ports:
+      - "127.0.0.1:${WEB_PORT:-43128}:80"
+    networks: [internal]
+
+  # The API treats Elasticsearch as non-critical: its outbox retains events
+  # until this service confirms them, so financial operations are never blocked.
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - worth_split_elasticsearch:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:9200/_cluster/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      internal:
+        aliases: [worth-split-elasticsearch]
+
+volumes:
+  worth_split_db:
+  worth_split_elasticsearch:
+
+networks:
+  internal:

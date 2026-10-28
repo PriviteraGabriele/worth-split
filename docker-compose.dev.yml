@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run dev -w @worth-split/api
+    environment:
+      NODE_ENV: development
+      APP_ORIGIN: http://localhost:${DEV_WEB_PORT:-43127}
+      COOKIE_SECURE: "false"
+    volumes:
+      - ./apps/api/src:/workspace/apps/api/src:delegated
+      - ./apps/api/test:/workspace/apps/api/test:delegated
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run dev -w @worth-split/web -- --host 0.0.0.0
+    environment:
+      VITE_API_PROXY_TARGET: http://api:3000
+    volumes:
+      - ./apps/web/src:/workspace/apps/web/src:delegated
+      - ./apps/web/public:/workspace/apps/web/public:delegated
+      - ./apps/web/index.html:/workspace/apps/web/index.html:delegated
+      - ./apps/web/vite.config.ts:/workspace/apps/web/vite.config.ts:delegated
+    ports: !override
+      - "127.0.0.1:${DEV_WEB_PORT:-43127}:5173"
+    healthcheck:
+      disable: true

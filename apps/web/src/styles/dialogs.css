@@ -1,0 +1,180 @@
+/* ---------- Dialog content (sheets on phones, cards on desktop) ---------- */
+.sheet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.warning {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--negs);
+  color: var(--neg);
+  font-weight: 600;
+  font-size: 14px;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+.detail-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--bg);
+}
+.detail-grid > div.wide {
+  grid-column: 1 / -1;
+}
+.detail-grid strong {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.summary-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.summary-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.summary-hero-label {
+  opacity: 0.85;
+  font-weight: 600;
+  font-size: 14px;
+}
+.summary-hero strong {
+  font-size: 32px;
+  font-weight: 700;
+}
+.summary-hero-meta {
+  margin-top: 4px;
+  color: var(--hero-mu);
+  font-size: 13px;
+  font-weight: 700;
+}
+.summary-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.summary-group {
+  padding: 14px;
+  border-radius: 20px;
+  background: var(--bg);
+}
+.summary-group header {
+  align-items: flex-start;
+}
+.summary-group header > div {
+  display: flex;
+  flex-direction: column;
+}
+.summary-group-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.summary-group-name .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.summary-group .progress {
+  margin: 10px 0 6px;
+  background: var(--sf2);
+}
+.summary-group li {
+  padding: 8px 0;
+  border-top: 1px solid var(--ln);
+}
+.summary-group li > div {
+  display: flex;
+  flex-direction: column;
+}
+.summary-group li strong {
+  font-size: 14px;
+}
+.summary-group small {
+  font-size: 12.5px;
+}
+.confirm-sheet,
+.delete-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.confirm-sheet p,
+.delete-confirmation p {
+  font-size: 16px;
+  font-weight: 600;
+}
+.confirm-sheet small,
+.delete-confirmation small {
+  color: var(--mu);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.confirm-sheet .edit-actions,
+.confirm-sheet .form-error,
+.delete-confirmation .edit-actions,
+.delete-confirmation-actions,
+.delete-confirmation .form-error {
+  width: 100%;
+}
+.confirm-icon,
+.delete-confirmation-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ac);
+  color: var(--aci);
+}
+.confirm-icon.danger,
+.delete-confirmation-icon {
+  background: var(--negs);
+  color: var(--neg);
+}
+.confirm-icon svg,
+.delete-confirmation-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Shared pieces of the bucket and template editors. */
+.template-kind {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--ac);
+  color: var(--aci);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.bucket-color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.bucket-color {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--bucket-color);
+}
+.bucket-color.selected {
+  box-shadow:
+    0 0 0 3px var(--sf),
+    0 0 0 5px var(--ink);
+}

@@ -1,0 +1,125 @@
+name: Verify and publish production images
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit SHA, tag, or branch to publish as production (used for a controlled rollback)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-production-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  IMAGE_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPOSITORY }}
+  IMAGE_PREFIX: ${{ vars.DOCKERHUB_IMAGE_PREFIX }}
+  IMAGE_LABEL: com.worth-split.application=true
+
+jobs:
+  verify-and-publish:
+    # Forks have neither the registry secrets nor a reason to publish images.
+    if: github.repository == 'PriviteraGabriele/worth-split'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+
+      - name: Resolve checked out revision
+        id: revision
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "subject=$(git log -1 --format=%s | tr '\n\r' ' ')" >> "$GITHUB_OUTPUT"
+          echo "author=$(git log -1 --format=%an | tr '\n\r' ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build application
+        run: npm run build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build API image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: apps/api/Dockerfile
+          load: true
+          tags: |
+            ${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_PREFIX }}-api-production
+            ${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_PREFIX }}-api-${{ steps.revision.outputs.sha }}
+          labels: |
+            ${{ env.IMAGE_LABEL }}
+            org.opencontainers.image.revision=${{ steps.revision.outputs.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            io.github.deploy-notifier.repository=${{ github.repository }}
+            io.github.deploy-notifier.branch=${{ github.ref_name }}
+            io.github.deploy-notifier.build-number=${{ github.run_number }}
+            io.github.deploy-notifier.run-id=${{ github.run_id }}
+            io.github.deploy-notifier.pipeline-url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            io.github.deploy-notifier.commit=${{ steps.revision.outputs.subject }}
+            io.github.deploy-notifier.author=${{ steps.revision.outputs.author }}
+
+      - name: Build web image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: apps/web/Dockerfile
+          load: true
+          tags: |
+            ${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_PREFIX }}-web-production
+            ${{ env.IMAGE_REPOSITORY }}:${{ env.IMAGE_PREFIX }}-web-${{ steps.revision.outputs.sha }}
+          labels: |
+            ${{ env.IMAGE_LABEL }}
+            org.opencontainers.image.revision=${{ steps.revision.outputs.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            io.github.deploy-notifier.repository=${{ github.repository }}
+            io.github.deploy-notifier.branch=${{ github.ref_name }}
+            io.github.deploy-notifier.build-number=${{ github.run_number }}
+            io.github.deploy-notifier.run-id=${{ github.run_id }}
+            io.github.deploy-notifier.pipeline-url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            io.github.deploy-notifier.commit=${{ steps.revision.outputs.subject }}
+            io.github.deploy-notifier.author=${{ steps.revision.outputs.author }}
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image tags
+        run: docker image push --all-tags "$IMAGE_REPOSITORY"
+
+      - name: Retain recent Docker Hub rollback images
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_REPOSITORY: ${{ vars.DOCKERHUB_REPOSITORY }}
+          DOCKERHUB_IMAGE_PREFIX: ${{ vars.DOCKERHUB_IMAGE_PREFIX }}
+          DOCKERHUB_IMAGE_RETENTION_COUNT: ${{ vars.DOCKERHUB_IMAGE_RETENTION_COUNT || '3' }}
+          DOCKERHUB_CLEANUP_TOKEN: ${{ secrets.DOCKERHUB_CLEANUP_TOKEN }}
+        run: bash scripts/prune-dockerhub-tags.sh

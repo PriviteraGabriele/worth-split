@@ -1,0 +1,19 @@
+{
+  "name": "worth-split",
+  "private": true,
+  "license": "MIT",
+  "version": "0.1.0",
+  "engines": { "node": ">=22" },
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @worth-split/api\" \"npm run dev -w @worth-split/web\"",
+    "build": "npm run build -w @worth-split/api && npm run build -w @worth-split/web",
+    "test": "npm run test -w @worth-split/api && npm run test -w @worth-split/web",
+    "lint": "npm run lint -w @worth-split/api && npm run lint -w @worth-split/web",
+    "typecheck": "npm run typecheck -w @worth-split/api && npm run typecheck -w @worth-split/web",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
