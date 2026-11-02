@@ -1,4 +1,16 @@
-# Sicurezza
+# Security
+
+## Reporting a vulnerability
+
+Please do not open a public issue for a security problem. Use GitHub's private reporting instead: the repository's **Security** tab → **Report a vulnerability**. The report stays visible only to you and the maintainer until it is fixed.
+
+If you can, include:
+
+- the affected version or commit;
+- the steps to reproduce the problem on a local installation;
+- the impact you expect (which data or which account is exposed).
+
+You will get a first reply within a few days. Reports in English or Italian are both welcome. Do not run tests against installations that are not yours.
 
 ## Segnalare una vulnerabilità
 
@@ -11,7 +23,3 @@ Indica, se puoi:
 - l'impatto che ti aspetti (quale dato o quale account è esposto).
 
 Riceverai una prima risposta entro qualche giorno. Non eseguire test su installazioni che non sono tue.
-
-## Reporting a vulnerability
-
-Please do not open a public issue for a security problem. Use GitHub's private reporting instead: **Security** tab → **Report a vulnerability**.
