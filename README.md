@@ -1,131 +1,135 @@
 <p align="center">
-  <img src="apps/web/public/branding/logo.svg" width="88" height="88" alt="Logo WorthSplit">
+  <img src="apps/web/public/branding/logo.svg" width="88" height="88" alt="WorthSplit logo">
 </p>
 
 <h1 align="center">WorthSplit</h1>
 
-<p align="center"><strong>I tuoi soldi. Finalmente chiari.</strong></p>
+<p align="center"><strong>Your money. Finally clear.</strong></p>
+
+<p align="center"><strong>English</strong> · <a href="README.it.md">Italiano</a></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/stato-attivo-c6f24e?style=flat-square&labelColor=0f0f10" alt="Stato: attivo">
-  <img src="https://img.shields.io/badge/PWA-installabile-c6f24e?style=flat-square&labelColor=0f0f10" alt="PWA installabile">
-  <img src="https://img.shields.io/badge/uso-personale-c6f24e?style=flat-square&labelColor=0f0f10" alt="Uso personale">
+  <img src="https://img.shields.io/badge/status-active-c6f24e?style=flat-square&labelColor=0f0f10" alt="Status: active">
+  <img src="https://img.shields.io/badge/PWA-installable-c6f24e?style=flat-square&labelColor=0f0f10" alt="Installable PWA">
+  <img src="https://img.shields.io/badge/use-personal-c6f24e?style=flat-square&labelColor=0f0f10" alt="Personal use">
 </p>
 
-WorthSplit è un’app web personale, mobile-first e installabile, per dividere il patrimonio in **bucket** e tenere sotto controllo dove si trova ogni euro. Non è un’app di budgeting: al centro ci sono i saldi, gli spostamenti tra bucket e le spese che arriveranno, con una panoramica chiara sia dal telefono sia dal computer.
+WorthSplit is a personal, mobile-first and installable web app that splits your net worth into **buckets** and keeps track of where every euro sits. It is not a budgeting app: it focuses on balances, moves between buckets and the expenses that are coming, with a clear overview on both phone and desktop.
+
+> The app interface is in Italian, as the screenshots show.
 
 <p align="center">
-  <img src="docs/media/screenshots/dark-home.webp" width="250" alt="Home con patrimonio netto, spese del mese e bucket">
-  <img src="docs/media/screenshots/dark-distribuisci.webp" width="250" alt="Distribuzione di uno stipendio con il template a percentuali">
-  <img src="docs/media/screenshots/dark-previsioni.webp" width="250" alt="Spese previste del mese con il residuo da pagare">
+  <img src="docs/media/screenshots/dark-home.webp" width="250" alt="Home with net worth, this month's expenses and buckets">
+  <img src="docs/media/screenshots/dark-distribuisci.webp" width="250" alt="Distributing a salary with a percentage template">
+  <img src="docs/media/screenshots/dark-previsioni.webp" width="250" alt="This month's planned expenses with the amount still due">
 </p>
 
-## Perché WorthSplit
+## Why WorthSplit
 
-Il denaro ha destinazioni diverse: spese correnti, fondo emergenza, vacanze, investimenti. WorthSplit le rappresenta come bucket separati e ti mostra sempre tre cose: quanto hai, dove si trova e quanto ti resta davvero dopo le spese già previste.
+Money has different purposes: day-to-day spending, an emergency fund, holidays, investments. WorthSplit keeps each one in its own bucket and always shows three things: how much you have, where it is, and how much is really left once the expenses you already expect are paid.
 
-- Un patrimonio leggibile a colpo d’occhio, con la composizione per bucket.
-- Ogni spostamento tracciato in uno storico che non si riscrive.
-- Le spese previste del mese sottratte in anticipo, bucket per bucket.
-- Dati privati, sincronizzati tra dispositivi, senza analytics né pubblicità.
+- Net worth you can read at a glance, with its split across buckets.
+- Every move recorded in a history that is never rewritten.
+- This month's planned expenses set aside in advance, bucket by bucket.
+- Private data, synced across devices, with no analytics and no ads.
 
-## Funzionalità
+## Features
 
 ### Home
 
-- Patrimonio netto con andamento recente, variazione del mese e barra di composizione.
-- Riepilogo del mese: quanto resta da pagare e quanto ti rimane **poi**.
-- Card dei bucket con saldo, quota sul totale e una barra che mostra la parte già impegnata dalle spese previste, con sotto quanto **resta** una volta pagate.
-- Riordino dei bucket con trascinamento, anche da touch.
-- Su desktop: vista a griglia con trasferimento rapido, ultimi movimenti e prossime scadenze.
+- Net worth with its recent trend, the change this month and a composition bar.
+- Monthly summary: what is still due and what is left **after** it.
+- Bucket cards with balance, share of the total and a bar showing the part already committed to planned expenses, with what **remains** once they are paid.
+- Drag-and-drop bucket ordering, touch included.
+- On desktop: a grid view with quick transfer, latest operations and upcoming payments.
 
-### Spostare denaro
+### Moving money
 
-- **Trasferisci** tra due bucket con il tastierino, le scorciatoie 25%, 50% e Tutto, e i saldi prima e dopo per entrambi.
-- **Distribuisci** un’entrata su più bucket a importi fissi o in percentuale, con la quota assegnata e la rimanenza in tempo reale.
-- **Template** di distribuzione salvati, da applicare con un tocco (per esempio «Stipendio» o «Tredicesima»).
-- **Ribilancia** i bucket con il saldo reale del conto: scegli l’ordine di utilizzo e vedi per ogni bucket il saldo prima, quello dopo e la variazione.
-- Nel dettaglio di un bucket: aggiungi, sottrai o imposta direttamente il saldo.
+- **Transfer** between two buckets with an on-screen keypad, 25%, 50% and All shortcuts, and both balances shown before and after.
+- **Distribute** an income across several buckets by fixed amounts or percentages, with the assigned share and the remainder updated live.
+- Saved distribution **templates**, applied in one tap (for example "Salary" or "13th-month pay").
+- **Rebalance** buckets against the real bank balance: choose the order in which buckets absorb the difference and see, for each one, the balance before, after and the change.
+- From a bucket's detail page: add to, subtract from or set its balance directly.
 
-### Spese previste
+### Planned expenses
 
-- Spese a importo fisso o stimato, ricorrenti o una tantum, divise per categoria: abbonamenti, rate, una tantum e altro.
-- Frequenze mensile, bimestrale, trimestrale, semestrale e annuale, con scadenza a inizio, metà o fine mese oppure in un giorno preciso.
-- Vista mese per mese di cosa è aperto e cosa è già pagato. Per le spese stimate il **da pagare** è sempre il residuo, e resta visibile quanto è già stato registrato.
-- Pagamenti parziali, correzioni e riapertura di una spesa già chiusa.
-- Possibilità di escludere una spesa dal totale stimato a partire da un mese.
+- Fixed or estimated amounts, recurring or one-off, grouped by category: subscriptions, instalments, one-off and other.
+- Monthly, bimonthly, quarterly, half-yearly and yearly frequencies, due at the start, middle or end of the month or on a given day.
+- Month-by-month view of what is open and what is already paid. For estimated expenses the amount **due** is always what remains, and what has already been charged stays visible.
+- Partial payments, corrections and reopening an expense already closed.
+- An expense can be left out of the estimated total from a chosen month onwards.
 
-### Movimenti e andamento
+### Operations and trends
 
-- Storico completo con filtri per tipo di operazione e ricerca, paginato su desktop.
-- Andamento su 6 mesi, 1 anno o tutto lo storico, con la composizione e la variazione di ogni bucket.
+- Full history with filters by operation type and search, paginated on desktop.
+- Trends over 6 months, 1 year or the whole history, with each bucket's composition and change.
 
-### Impostazioni
+### Settings
 
-- Profilo con **foto**, nome e cambio password.
-- Gestione di bucket, spese previste e template da pagine dedicate (pannello laterale su desktop).
-- Tema chiaro, scuro o automatico, e importi nascosti con un tocco.
-- **Backup** completo esportabile in chiaro o cifrato sul dispositivo con AES-256-GCM, con lo storico delle esportazioni. L’import mostra cosa contiene il file e lo confronta con i dati attuali prima di sostituirli.
-- **Azzera dati** con reset parziale (movimenti e saldi) o totale, protetto da una parola di conferma.
+- Profile with **photo**, name and password change.
+- Buckets, planned expenses and templates managed from dedicated pages (a side drawer on desktop).
+- Light, dark or automatic theme, and amounts hidden in one tap.
+- Full **backup**, exported in plain form or encrypted on the device with AES-256-GCM, with a history of past exports. Importing shows what the file contains and compares it with the current data before replacing it.
+- **Reset data**, partial (operations and balances) or total, protected by a confirmation word.
 
-### Account e privacy
+### Accounts and privacy
 
-- Più account con patrimoni completamente separati e nessuna registrazione pubblica.
-- L’amministratore crea gli account con nome e ruolo, mandando un **invito via email** (l’utente sceglie la password da un link valido 7 giorni) oppure consegnando una password temporanea generata.
-- Modifica dei dati, cambio di ruolo, reinvio dell’invito o del link per la password, disattivazione ed eliminazione degli utenti. L’amministratore non vede mai i dati finanziari degli altri.
-- Password dimenticata: un link monouso via email, valido un’ora. Un avviso via email segnala ogni cambio o reimpostazione della password.
-- Password protette con Argon2id, sessioni in cookie HttpOnly e link salvati solo come impronta SHA-256.
+- Multiple accounts with fully separate finances and no public sign-up.
+- The administrator creates accounts with name and role, either with an **e-mail invitation** (the user picks a password through a link valid for 7 days) or with a generated temporary password.
+- Editing user data, changing roles, resending the invitation or a password link, disabling and deleting users. The administrator never sees other users' financial data.
+- Forgotten password: a single-use e-mail link valid for one hour. An e-mail notice reports every password change or reset.
+- Passwords hashed with Argon2id, sessions in HttpOnly cookies and links stored only as SHA-256 digests.
 
-### App installabile
+### Installable app
 
-- PWA installabile su iPhone e Android, con icona, schermata di avvio e aree sicure curate (anche la sfocatura che iOS 26 aggiunge in alto).
-- La struttura dell’app resta disponibile anche offline; i dati finanziari sono sempre letti dal server, mai da una copia locale.
+- PWA installable on iPhone and Android, with icon, launch screen and careful handling of safe areas (including the blur iOS 26 adds at the top).
+- The app shell stays available offline; financial data is always read from the server, never from a local copy.
 
-## Schermate
+## Screenshots
 
-### Telefono
+### Phone
 
-| Home | Movimenti | Andamento |
+| Home | Operations | Trends |
 | :---: | :---: | :---: |
-| <img src="docs/media/screenshots/dark-home.webp" width="240" alt="Home"> | <img src="docs/media/screenshots/dark-movimenti.webp" width="240" alt="Storico dei movimenti con filtri"> | <img src="docs/media/screenshots/dark-andamento.webp" width="240" alt="Andamento del patrimonio su un anno"> |
+| <img src="docs/media/screenshots/dark-home.webp" width="240" alt="Home"> | <img src="docs/media/screenshots/dark-movimenti.webp" width="240" alt="Operation history with filters"> | <img src="docs/media/screenshots/dark-andamento.webp" width="240" alt="Net worth trend over one year"> |
 
-| Trasferisci | Dettaglio bucket | Impostazioni |
+| Transfer | Bucket detail | Settings |
 | :---: | :---: | :---: |
-| <img src="docs/media/screenshots/dark-trasferisci.webp" width="240" alt="Trasferimento tra due bucket con saldi prima e dopo"> | <img src="docs/media/screenshots/dark-bucket.webp" width="240" alt="Dettaglio di un bucket con aggiunta al saldo"> | <img src="docs/media/screenshots/dark-impostazioni.webp" width="240" alt="Impostazioni"> |
+| <img src="docs/media/screenshots/dark-trasferisci.webp" width="240" alt="Transfer between two buckets with balances before and after"> | <img src="docs/media/screenshots/dark-bucket.webp" width="240" alt="Bucket detail adding to the balance"> | <img src="docs/media/screenshots/dark-impostazioni.webp" width="240" alt="Settings"> |
 
-| Tema chiaro | Previsioni (chiaro) | Accesso |
+| Light theme | Planned expenses (light) | Sign in |
 | :---: | :---: | :---: |
-| <img src="docs/media/screenshots/light-home.webp" width="240" alt="Home in tema chiaro"> | <img src="docs/media/screenshots/light-previsioni.webp" width="240" alt="Spese previste in tema chiaro"> | <img src="docs/media/screenshots/dark-login.webp" width="240" alt="Pagina di accesso"> |
+| <img src="docs/media/screenshots/light-home.webp" width="240" alt="Home in the light theme"> | <img src="docs/media/screenshots/light-previsioni.webp" width="240" alt="Planned expenses in the light theme"> | <img src="docs/media/screenshots/dark-login.webp" width="240" alt="Sign-in page"> |
 
 ### Desktop
 
-<img src="docs/media/screenshots/desktop-home.webp" alt="Home su desktop con patrimonio, bucket, trasferimento rapido e scadenze">
+<img src="docs/media/screenshots/desktop-home.webp" alt="Desktop home with net worth, buckets, quick transfer and upcoming payments">
 
 <p align="center">
-  <img src="docs/media/screenshots/desktop-previsioni.webp" width="49%" alt="Spese previste su desktop">
-  <img src="docs/media/screenshots/desktop-andamento.webp" width="49%" alt="Andamento su desktop">
+  <img src="docs/media/screenshots/desktop-previsioni.webp" width="49%" alt="Planned expenses on desktop">
+  <img src="docs/media/screenshots/desktop-andamento.webp" width="49%" alt="Trends on desktop">
 </p>
 
-<sub>Le schermate mostrano un account dimostrativo con dati fittizi.</sub>
+<sub>The screenshots show a demo account with fictitious data.</sub>
 
-## Principi del progetto
+## Principles
 
-- **Precisione prima di tutto.** Gli importi sono gestiti in centesimi interi: nessun arrotondamento involontario nei calcoli.
-- **Storico affidabile.** Ogni correzione diventa un nuovo movimento: la storia non viene riscritta.
-- **Operazioni atomiche.** Trasferimenti, distribuzioni e ribilanciamenti si completano per intero oppure non avvengono; il server ricalcola tutto senza fidarsi delle anteprime.
-- **Mobile prima di tutto.** Tastierino per gli importi, controlli touch ampi, aree sicure di iPhone e finestre pensate per la tastiera virtuale.
-- **Autonomia.** Nessun tracker, font remoto, pubblicità o servizio esterno necessario al funzionamento.
+- **Precision first.** Amounts are handled as integer cents: no accidental rounding in any calculation.
+- **A history you can trust.** Every correction becomes a new operation: history is never rewritten.
+- **Atomic operations.** Transfers, distributions and rebalances either complete in full or do not happen; the server recomputes everything and never trusts client previews.
+- **Mobile first.** A keypad for amounts, large touch targets, iPhone safe areas and dialogs designed around the on-screen keyboard.
+- **Self-contained.** No trackers, remote fonts, ads or external services needed to run it.
 
-## Tecnologie
+## Tech stack
 
-React, TypeScript, Vite, Fastify, PostgreSQL, Docker Compose e PWA.
+React, TypeScript, Vite, Fastify, PostgreSQL, Docker Compose and PWA.
 
-Per installazione locale, build, test, configurazione e deploy consulta il [README tecnico](README.tecnico.md).
+Local setup, build, tests, configuration and deployment are covered in the [technical guide](README.tecnico.md) (in Italian).
 
-## Licenza
+## License
 
-Distribuito con licenza [MIT](LICENSE). Per segnalare una vulnerabilità segui [SECURITY.md](SECURITY.md).
+Released under the [MIT](LICENSE) license. To report a vulnerability, follow [SECURITY.md](SECURITY.md).
 
 ---
 
-WorthSplit è un progetto personale. Usalo come strumento di organizzazione: non costituisce consulenza finanziaria.
+WorthSplit is a personal project. Use it as an organisation tool: it is not financial advice.

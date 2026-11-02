@@ -1,6 +1,6 @@
 # WorthSplit — README tecnico
 
-Guida per eseguire, verificare, compilare e distribuire WorthSplit. Per una presentazione dell’app consulta il [README principale](README.md).
+Guida per eseguire, verificare, compilare e distribuire WorthSplit. Per una presentazione dell’app consulta il [README](README.it.md) ([in inglese](README.md)).
 
 ## Architettura
 
