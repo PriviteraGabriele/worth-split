@@ -24,8 +24,9 @@ env:
 
 jobs:
   verify-and-publish:
-    # Forks have neither the registry secrets nor a reason to publish images.
-    if: github.repository == 'PriviteraGabriele/worth-split'
+    # Forks have neither the registry secrets nor a reason to publish images: the
+    # job runs only where the DOCKERHUB_REPOSITORY variable is set (no owner name here).
+    if: vars.DOCKERHUB_REPOSITORY != ''
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
